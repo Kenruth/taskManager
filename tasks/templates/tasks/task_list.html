@@ -2,18 +2,52 @@
 <html>
 <head>
     <title>Task List</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+        }
+        .task-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px
+        }
+        .task-tile {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: calc(30% - 40px);
+            box-shadow: 0 2px 4px rgba;
+            transition: transform 0.2s;
+        }
+        .task-tile {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .task-status {
+            margin-bottom: 10px;
+        }
+        .task-actions {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Task List</h1>
     <a href="{% url 'task_create' %}">Create New Task</a>
-    <ul>
+    <div class="task-grid">
         {% for task in tasks %}
-            <li>
-                {{ task.title }} - {% if task.completed %}Completed{% else %}Not Completed{% endif %}
-                <a href="{% url 'task_update' task.id %}">Edit</a>
-                <a href="{% url 'task_delete' task.id %}">Delete</a>
-            </li>
+            <div class="task-tile">
+                <div class="task-title">{{ task.title }}</div>
+                <div class="task-status">
+                    {% if task.completed %}Completed{% else %}Not Completed{% endif %}
+                </div>
+                <div class="task-actions">
+                    <a href="{% url 'task_update' task.id %}">Edit</a>
+                    <a href="{% url 'task_delete' task.id %}">Delete</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
